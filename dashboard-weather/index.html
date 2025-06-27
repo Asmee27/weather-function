@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    h2 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #007BFF; color: white; }
+  </style>
+</head>
+<body>
+  <h2>📊 Real-Time Weather Dashboard</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Temperature (°C)</th>
+        <th>Humidity (%)</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody id="data"></tbody>
+  </table>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+  apiKey: "AIzaSyB0XPmyDxE_GMjkyNq3AQwXO8kNDmisxbI",
+  authDomain: "cloud-weather-tracker-2025.firebaseapp.com",
+  projectId: "cloud-weather-tracker-2025",
+  storageBucket: "cloud-weather-tracker-2025.firebasestorage.app",
+  messagingSenderId: "219950107903",
+  appId: "1:219950107903:web:f10588f28f5ff6b1cdd0ca"
+};
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const tableBody = document.getElementById("data");
+
+    onSnapshot(collection(db, "weather"), (snapshot) => {
+      tableBody.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        console.log("🔥 Data received:", data);
+        tableBody.innerHTML += `
+          <tr>
+            <td>${data.City || "N/A"}</td>
+            <td>${data.Temperature ?? "N/A"}</td>
+            <td>${data.Humidity ?? "N/A"}</td>
+            <td>${data.Condition || "N/A"}</td>
+          </tr>`;
+      });
+    });
+  </script>
+</body>
+</html>
