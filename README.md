@@ -42,3 +42,20 @@ A smart, cloud-native weather tracking system that:
   "Humidity": 45,
   "Condition": "Sunny"
 }
+
+weather-function/
+├── main.py                 # Cloud Function source
+├── requirements.txt        # Python dependencies
+dashboard/
+└── index.html              # Real-time frontend UI
+
+✅ Steps to Deploy (Summarized)
+1.Create GCP Project
+2.Enable Cloud Functions, GCS, Pub/Sub, Firestore
+3.Create GCS Bucket and Pub/Sub topic
+4.Write and deploy Cloud Function
+5.Enable Firestore in Firebase
+6.Upload .json files to GCS
+
+
+
